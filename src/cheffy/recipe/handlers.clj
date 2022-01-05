@@ -5,6 +5,7 @@
 (defn list-all-recipes
   [db]
   (fn [request]
-    (let [recipes (recipe-db/find-all-recipes db)]
+    (let [uid "auth0|5ef440986e8fbb001355fd9c"
+          recipes (recipe-db/find-all-recipes db uid)]
       ;; rr = ring response, returns a skeletal Ring response with the given body, status of 200, and no headers
       (rr/response recipes))))
