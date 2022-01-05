@@ -14,6 +14,11 @@
   ;; Overwrite port from config.edn (use Heroku's)
   (merge config {:port (Integer/parseInt (env :port))}))
 
+(defmethod ig/prep-key :db/postgres
+  [_ config]
+  ;; Overwrite port from config.edn (use Heroku's)
+  (merge config {:jdbc-url (env :jdbc-database-url)}))
+
 (defmethod ig/init-key :server/jetty
   ;; Unused arg === _
   ;; keys is used to destructure map
