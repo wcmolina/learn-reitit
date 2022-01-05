@@ -1,0 +1,4 @@
+{:server/jetty {:handler #ig/ref :cheffy/app
+                :port 3000}
+ :cheffy/app {:jdbc-url #ig/ref :db/postgres}
+ :db/postgres {:jdbc-url "jdbc:postgresql://ec2-54-83-137-206.compute-1.amazonaws.com:5432/d1iqpegauer76?password=ac261edc08e36b637dcde4fb9a8887741add7a96d72247961fe5810930fd12bd&sslmode=require&user=rqnhjkzymdvgup"}}
