@@ -14,10 +14,12 @@
 ;; reset-all will reload everything regardless of changed/unchanged files
 (def reset-all ig-repl/reset-all)
 
-(defn app [] (-> state/system :cheffy/app))
-(defn db [] (-> state/system :db/postgres))
+(def app (-> state/system :cheffy/app))
+(def db (-> state/system :db/postgres))
 
 (comment
+  (app {:request-method :get
+        :uri "/v1/recipes"})
   (go)
   (halt)
   (reset))
