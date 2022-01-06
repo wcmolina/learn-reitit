@@ -32,5 +32,4 @@
         (recipe/routes env)]]
       router-config)
     (ring/routes
-      (swagger-ui/create-swagger-ui-handler {:path "/"}))
-    ))
+      (swagger-ui/create-swagger-ui-handler {:path "/"}))))
