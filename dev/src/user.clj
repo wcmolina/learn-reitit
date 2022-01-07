@@ -19,9 +19,29 @@
 (def app (-> state/system :cheffy/app))
 (def db (-> state/system :db/postgres))
 
+(def router
+  (reitit.core/router
+    ["/v1/recipes/:recipe-id"
+     {:coercion reitit.coercion.spec/coercion
+      :parameters {:path {:recipe-id string?}}}]
+    ;; Compile  at router creation time, not on the request time
+    {:compile reitit.coercion/compile-request-coercers}))
+
+;; Coercion: process of transforming params and responses
 (comment
+  (reitit.coercion/coerce!
+    (reitit.core/match-by-path router "/v1/recipes/1234-recipe"))
+
   (app {:request-method :get
-        :uri            "/swagger.json"})
+        :uri            "/v1/recipes/1234"})
+
+  (require '[clojure.pprint :refer [pprint]])
+  (require '[reitit.core])
+  (require '[reitit.coercion])
+  (require '[reitit.coercion.spec])
+
+  (pprint (macroexpand '(ns coercion (:require [clojure.pprint :refer [pprint]]))))
+
   (jdbc/execute! db ["SELECT * FROM recipe WHERE public = true;"])
   (time
     (with-open [conn (jdbc/get-connection db)]
