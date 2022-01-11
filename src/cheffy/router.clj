@@ -4,7 +4,10 @@
             [reitit.swagger :as swagger]
             [reitit.swagger-ui :as swagger-ui]
             [muuntaja.core :as m]
-            [reitit.ring.middleware.muuntaja :as muuntaja]))
+            [reitit.ring.middleware.muuntaja :as muuntaja]
+            [reitit.coercion.spec :as coercion-spec]
+            [reitit.ring.coercion :as coercion]
+            [reitit.ring.middleware.exception :as exception]))
 
 (def swagger-docs
   ["/swagger.json"
@@ -18,9 +21,12 @@
 
 (def router-config
   ;; muuntaja (content negotiation lib)
-  {:data {:muuntaja   m/instance
+  {:data {:coercion coercion-spec/coercion
+          :muuntaja   m/instance
           :middleware [swagger/swagger-feature
-                       muuntaja/format-middleware]}})
+                       muuntaja/format-middleware
+                       exception/exception-middleware
+                       coercion/coerce-request-middleware]}})
 
 (defn routes
   [env]
