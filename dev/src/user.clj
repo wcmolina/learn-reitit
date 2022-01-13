@@ -2,7 +2,8 @@
   (:require [integrant.repl :as ig-repl]
             [integrant.core :as ig]
             [integrant.repl.state :as state]
-            [cheffy.server]))
+            [cheffy.server]
+            [next.jdbc.sql :as sql]))
 
 (ig-repl/set-prep!
   (fn [] (-> "resources/config.edn" slurp ig/read-string)))
@@ -15,9 +16,14 @@
 (def reset-all ig-repl/reset-all)
 
 (def app (-> state/system :cheffy/app))
+(def db (-> state/system :db/postgres))
 
 ;; Coercion: process of transforming params and responses
 (comment
+  (sql/update! db :recipe {:name "Wil"} {:recipe-id "a3dde84c-4a33-45aa-b0f3-4bf9ac997680"})
+
+  (set! *print-namespace-maps* false)
+
   (-> (app {:request-method :get
             :uri            "/v1/recipes/1234-recipe"})
       :body

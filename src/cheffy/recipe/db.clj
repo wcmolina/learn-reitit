@@ -27,3 +27,11 @@
         (assoc recipe
           :recipe/steps steps
           :recipe/ingredients ingredients)))))
+
+(defn update-recipe!
+  [db recipe]
+  (-> (sql/update! db :recipe recipe (select-keys recipe [:recipe-id]))
+      :next.jdbc/update-count
+      ; positive?
+      (pos?)))
+
