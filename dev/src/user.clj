@@ -22,6 +22,13 @@
             :uri            "/v1/recipes/1234-recipe"})
       :body
       (slurp))
+  (-> (app {:request-method :post
+            :uri            "/v1/recipes"
+            :body-params {:name "My recipe"
+                          :prep-time 49
+                          :img "image-url"}})
+      :body
+      (slurp))
   (go)
   (halt)
   (reset))
