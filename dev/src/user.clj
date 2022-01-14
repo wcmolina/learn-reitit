@@ -21,6 +21,7 @@
 ;; Coercion: process of transforming params and responses
 (comment
   (sql/update! db :recipe {:name "Wil"} {:recipe-id "a3dde84c-4a33-45aa-b0f3-4bf9ac997680"})
+  (sql/delete! db :recipe {:recipe-id "a3dde84c-4a33-45aa-b0f3-4bf9ac997680"})
 
   (set! *print-namespace-maps* false)
 

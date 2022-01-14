@@ -35,3 +35,9 @@
       ; positive?
       (pos?)))
 
+(defn delete-recipe!
+  [db recipe]
+  (-> (sql/delete! db :recipe recipe)
+      :next.jdbc/update-count
+      ; positive?
+      (pos?)))
