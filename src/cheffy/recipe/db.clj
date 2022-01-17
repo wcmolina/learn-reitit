@@ -10,8 +10,8 @@
       (if uid
         (let [drafts (sql/find-by-keys conn :recipe {:public false :uid uid})]
           {:public public
-           :drafts drafts}))
-      {:public public})))
+           :drafts drafts})
+        {:public public}))))
 
 (defn insert-recipe!
   [db recipe]
