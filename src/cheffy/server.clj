@@ -41,6 +41,7 @@
   [_ jetty]
   (.stop jetty))
 
+; Having the initial function of a Clojure program named -main is the default, and is required for most tools
 (defn -main
   [config-file]
   ;; slurp is used to read a file basically
